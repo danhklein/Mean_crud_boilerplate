@@ -9,11 +9,7 @@ var data = [
 
 ]
 
-var postTest = {
-  firstName: 'JoeJoe',
-  lastName: 'Horseradish',
-  year: 2009
-}
+
 
 function runSeed(done) {
   var students = new Students(data[0]);

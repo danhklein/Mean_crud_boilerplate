@@ -4,28 +4,35 @@ app.service('studentDataService', ['crudService', function(crudService) {
 
   return {
     getAllStudents: function () {
-      crudService.getAll('students')
-      .then(function(){
-        console.log(students);
+      return crudService.getAll('students')
+      .then(function(students){
+
         return students;
       });
     },
     addStudent: function(payload) {
-      console.log(payload)
+      console.log(payload);
       crudService.addOne('students', payload)
       .then(function(student) {
-        console.log(student);
+
         return student;
       });
-    }
-  };
+    },
+    deleteStudent: function(payload) {
 
+      crudService.deleteOne('students/', payload)
+      .then(function(student) {
+
+        return student;
+      });
+    },
+  };
 }])
 
 
 app.service('crudService', ['$http', function($http) {
   return {
-    getAll: function () {
+    getAll: function (resource) {
      return $http.get('/'+resource)
         .then(function(res) {
           return res;
@@ -42,7 +49,15 @@ app.service('crudService', ['$http', function($http) {
         .catch(function(err) {
           return err;
         });
-
+    },
+    deleteOne: function(resource, payload) {
+      return $http.delete('/'+resource, (payload))
+      .then(function(res) {
+        return res;
+      })
+      .catch(function(err) {
+        return err;
+      });
     }
   };
 
