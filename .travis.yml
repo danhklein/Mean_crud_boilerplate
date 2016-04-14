@@ -1,14 +1,19 @@
 language: node_js
-
 node_js:
-  - "4.1"
-  - "4.0"
-  - '0.12'
-  - '0.11'
-
+- '5.0'
+- '4.1'
+- '4.0'
+- '0.12'
+- '0.11'
 services: mongodb
-
 before_script:
-  - npm install -g mocha
-
-# script: mocha
+- npm install -g mocha
+deploy:
+  provider: heroku
+  api_key:
+    secure: WM6DAhLtpgQI+Bdt3gLzMnWKnj0Pk69PdOlMWpsP2Eslsan6+ZEhSVzD2GtC88tF/ISZ77Y5hBFhlmOHMdFqXT25IDQGOIgX8JsJ3azwe8nHWGlU7P7MR75C309TbPrmvbXqmFNhGm3H1Hof1tEjNUwscw9vXqniTs7H2kWGibQN3dsKqKVcuXK6sc2+e6AtXRUtd47mBEjQOPIaKHb1H4utbAL5XlSvVL5xy0yaDugncjT0R2+sMcVHmTi+P/b2nl3G6qPNqKxbdEgNW3bPHWJoDKIRGBv0Qie50wVUVUkak4vFeIsIf5tyMD/dDgtyXkkw4ZejnwywdtMYQoeN3+RZtyMLqOCUEjjO7TlP5gYnAUiWDigTOlJbjkdEg+XLss9883L3LE9efCykPcB98nYLi2bclr+xYEiEbDEDSova9Jg4c9U/xub86abyI85DHNaYrHUHuWpBoyWOOJSyxs9YZbyDgLZXWMQRmUkbfuq4VjUjMaUaQ1NmgLyB7bOYxIgFu45vUvhw48W6UTFLRWCxJ/cCLWJMgUoP1rtipr33Q6HyoBydS1aCMx4hsY+rdtuzFo5tDZciLjA9vKtJlaMpILNc0fCGpskQ3Kj7OpukdGT40i5HTyEC4SD1K/2P1Rn3YMHYcXVamJKsQs34aVvixEw07LPYU4Jw7T5Cx+0=
+  app: morning-inlet-20983
+  on:
+    branch: master
+    node: '5.0'
+    repo: danhklein/Mean_crud_boilerplate
