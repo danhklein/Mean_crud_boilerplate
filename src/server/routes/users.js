@@ -3,7 +3,7 @@ var router = express.Router();
 var moment = require('moment');
 var jwt = require('jwt-simple');
 
-var User = require('models/users')
+var User = require('../models/users')
 var config = require('../../_config');
 
 
@@ -88,12 +88,69 @@ router.get('/logout', function(req, res, next) {
 function generateToken (user) {
   var payload = {
     //expiration date
-    exp: moment().add(14, 'days').unix()
+    exp: moment().add(14, 'days').unix(),
     //initialization date
-    iat: moment().unix();
+    iat: moment().unix(),
     sub: user._id
   }
   return jwt.encode(payload, config.TOKEN_SECRET);
+}
+//endsure authentifated
+function ensureAuthenticated(req, res,next) {
+  if(!(req.headers && req.headers.authorization)) {
+    return res.status(401)
+    .json({
+      status: 'fail',
+      message: 'No header present or no authorization header'
+    });
+  }
+  //decode the token
+  var header = req.headers.authorization.split('');
+  var token = header[1];
+  var payload = jwt.decode(token, config.TOKEN_SECRET)
+  var now = moment().unix();
+
+  //ensure that it is valid
+    //ensure token hasn't expired
+  if (now > payload.exp) {
+    return res.status(401)
+    .json({
+      status: 'fail',
+      message: 'Token has expired'
+    });
+  }
+
+  //ensure user is still in the database
+  User.findById(payload.sub, function(err, user) {
+    if (err) { return next(err)
+    }
+    if (!user) {
+      return res.status(400
+      .json({
+        status: 'faill',
+        message: 'User does not exist'
+      })
+    )}
+    //attach user to request object
+    req.user = user;
+    //call next middleware function
+    next();
+  });
+}
+
+//ensure admin
+function ensureAdmin(req,res,next) {
+  //check for the user object
+  //check for admin === true on user object
+  if(!(req.user && req.user.admin)) {
+    //throw error
+    return res.status(401)
+    .json({
+      status: 'fail',
+      message: 'User is not authorized'
+    })
+  }
+  next();
 }
 
 

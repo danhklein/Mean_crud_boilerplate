@@ -14,7 +14,6 @@ app.service('studentDataService', ['crudService', function(crudService) {
       console.log(payload);
       crudService.addOne('students', payload)
       .then(function(student) {
-
         return student;
       });
     },
@@ -29,7 +28,6 @@ app.service('studentDataService', ['crudService', function(crudService) {
   };
 }])
 
-
 app.service('crudService', ['$http', function($http) {
   return {
     getAll: function (resource) {
@@ -42,6 +40,7 @@ app.service('crudService', ['$http', function($http) {
         });
     },
     addOne: function(resource, payload) {
+      console.log(payload);
        return $http.post('/'+resource, payload)
         .then(function(res) {
           return res;

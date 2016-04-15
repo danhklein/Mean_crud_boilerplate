@@ -11,7 +11,7 @@
   <body>
     <!-- sample angular code -->
     <div class="container" ng-controller="addStudentController">
-      <form class="form" ng-submit="addStudent()">
+      <form class="form" ng-submit="addStudent(student)">
         <input ng-model="student.firstName" class="form-control" type="text" placeholder="first name..." required>
         <input ng-model="student.lastName" class="form-control" type="text" placeholder="last name..." required>
         <input ng-model="student.year" class="form-control" type="number" placeholder="first year..." required>
