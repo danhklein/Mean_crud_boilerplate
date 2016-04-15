@@ -11,12 +11,7 @@
   <body>
     <!-- sample angular code -->
     <div class="container" ng-controller="addStudentController">
-      <form class="form" ng-submit="addStudent(student)">
-        <input ng-model="student.firstName" class="form-control" type="text" placeholder="first name..." required>
-        <input ng-model="student.lastName" class="form-control" type="text" placeholder="last name..." required>
-        <input ng-model="student.year" class="form-control" type="number" placeholder="first year..." required>
-        <button type="submit" class="button btn-success">Add Student</button>
-      </form>
+      <div ng-view></div>
 
       <div class="container">
 
@@ -44,8 +39,10 @@
 
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.10/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.10/angular-route.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/controllers.js"></script>
     <script type="text/javascript" src="js/services.js"></script>
+    <script type="text/javascript" src="js/routes/routes.js"></script>
 
   </body>
