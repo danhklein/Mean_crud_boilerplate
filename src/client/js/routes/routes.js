@@ -7,20 +7,21 @@ app.config(function($routeProvider) {
         controller: 'myController'
       })
 
-      // .when('/register', {
-      //   templateUrl: '../partials/register.html',
-      //   controller: 'myController'
-      // })
+      .when('/register', {
+        templateUrl: '../partials/register.html',
+        controller: 'registerController'
+      })
 
-      // .when('/login', {
-      //   templateUrl: '../partials/login.html',
-      //   controller: 'myController'
-      // })
+      .when('/login', {
+        templateUrl: '../partials/login.html',
+        controller: 'loginController'
+      })
 
-      // .when('/logout', {
-      //   templateUrl: '../partials/logout.html',
-      //   controller: 'myController'
-      // })
+      .when('/logout', {
+        templateUrl: '../partials/logout.html',
+        controller: 'myController'
+      })
 
-      .otherwise('/');
+      .otherwise({redirectTo: '/login'});
+      $httpProvider.interceptors.push('AuthInterceptor')
 });

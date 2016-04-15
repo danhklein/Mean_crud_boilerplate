@@ -1,4 +1,4 @@
-app.controller('addStudentController', ['$scope', 'studentDataService',
+app.controller('addStudentController', ['$scope',  'studentDataService',
   function($scope, studentDataService){
 
     studentDataService.getAllStudents()
@@ -16,3 +16,17 @@ studentDataService.addStudent($scope.student);
     }
 
   }])
+
+app.controller('registerController', ['$scope', function($scope) {
+  $scope.user = {};
+  $scope.register = function() {
+    console.log($scope.user);
+  }
+}])
+
+app.controller('loginController', ['$scope', function($scope) {
+  $scope.user = {};
+  $scope.login = function() {
+    console.log($scope.user);
+  }
+}])

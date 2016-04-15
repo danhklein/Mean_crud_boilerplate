@@ -59,5 +59,33 @@ app.service('crudService', ['$http', function($http) {
       });
     }
   };
-
 }])
+
+/**
+1.login
+2. register
+3.get current user info
+**/
+app.service('authService', ['$http', '$window' function($http){
+  var user = {};
+  return {
+    login: function(user) {
+      return $http.post('/auth/login', user)
+    },
+    logout: function(user) {
+      user = null;
+      $window.localStorage.clear();
+      },
+    register: function(user) {
+      return $http.post('/auth/register', user)
+    },
+    setUserInfo: function(userData) {
+      $window.localStorage.set('user', '[PLACEHOLDER]');
+      $window.localStorage.set('token', '[PLACEHOLDER]');
+    },
+    getUserInfo: function(userData) {
+      $window.localStorage.get('user', '[PLACEHOLDER]');
+
+    }
+  };
+}]);
