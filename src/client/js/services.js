@@ -66,7 +66,7 @@ app.service('crudService', ['$http', function($http) {
 2. register
 3.get current user info
 **/
-app.service('authService', ['$http', '$window' function($http){
+app.service('authService', ['$http', '$window', function($http, $window){
   var user = {};
   return {
     login: function(user) {
@@ -80,12 +80,40 @@ app.service('authService', ['$http', '$window' function($http){
       return $http.post('/auth/register', user)
     },
     setUserInfo: function(userData) {
-      $window.localStorage.set('user', '[PLACEHOLDER]');
-      $window.localStorage.set('token', '[PLACEHOLDER]');
+      console.log('Userdata', userData)
+      $window.localStorage.set('user', JSON.stringify(userData.data.data.user));
+      $window.localStorage.set('token', JSON.stringify(userData.data.data.token));
     },
     getUserInfo: function(userData) {
       $window.localStorage.get('user', '[PLACEHOLDER]');
+    }
+  };
+}]);
 
+app.service('authInterceptor', ['$window', '$q', function($window, $q){
+  return {
+    // always make sure to return anything you use here!
+    request: function(config){
+      //check for token in headers
+      // config.headers['X-requested-with'] = XMLHttpRequest;
+      var token = $window.localStorage.getItem('token');
+      if (token) {
+        config.headers.Authorization = "Bearer " + token;
+        // return $q.resolve(config);
+      }
+
+      return config;
+    },
+
+    response: function(config){
+
+      debugger
+      return config;
+    },
+    responseError: function(err){
+      //if header auth os not present throw an error
+      debugger
+      return err;
     }
   };
 }]);

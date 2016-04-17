@@ -7,7 +7,7 @@ var User = require('../models/users')
 var config = require('../../_config');
 
 
-router.get('/register', function(req, res, next) {
+router.post('/register', function(req, res, next) {
   //ensure user does not already exist
   User.findOne({email: req.body.email}, function(err, existingUser) {
     if (err) {
@@ -38,7 +38,7 @@ router.get('/register', function(req, res, next) {
   })
 });
 
-router.get('/login', function(req, res, next) {
+router.post('/login', function(req, res, next) {
   //ensure the user exists
   User.findOne({email: req.body.email}, function(err, existingUser) {
     if (err) {

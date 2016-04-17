@@ -17,16 +17,41 @@ studentDataService.addStudent($scope.student);
 
   }])
 
-app.controller('registerController', ['$scope', function($scope) {
+app.controller('registerController', ['$scope', '$location', 'authService',
+  function($scope, location, authService) {
   $scope.user = {};
   $scope.register = function() {
-    console.log($scope.user);
-  }
+
+    authService.register($scope.user)
+      .then(function(user) {
+        authService.setUserInfo(user);
+        $location.path('/')
+      })
+      .catch(function(err){
+        //check status code,
+        //send appropriate message
+        console.log(err);
+      });
+  };
 }])
 
-app.controller('loginController', ['$scope', function($scope) {
+app.controller('loginController', ['$scope', '$location', 'authService',
+  function($scope) {
   $scope.user = {};
   $scope.login = function() {
-    console.log($scope.user);
-  }
+   authService.login($scope.user)
+
+    .then(function(user) {
+
+      authService.setUserInfo(user);
+      $location.path('/')
+
+    })
+    .catch(function(err){
+      //check status code,
+      //send appropriate message
+      console.log(err);
+
+    });
+};
 }])
